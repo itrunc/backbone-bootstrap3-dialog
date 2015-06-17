@@ -5,16 +5,28 @@ Bootstrap3 Dialog with Backbone View
 
 * Install node modules
 
-  ```npm install```
+  ```bash
+  npm install
+  ```
 
-* Build
-
-  ```gulp```
+  You might use sudo before npm.
 
 * Install components
 
-  ```bower install```
+  ```bash
+  bower install
+  ```
+
+* Build
+
+  ```bash
+  gulp
+  ```
 
 * Run demo
 
-  ```node demo```
+  ```bash
+  node demo
+  ```
+
+  Access http://localhost:3000/demo/
