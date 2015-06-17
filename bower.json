@@ -1,0 +1,33 @@
+{
+  "name": "backbone-bootstrap3-dialog",
+  "version": "0.0.0",
+  "homepage": "https://github.com/itrunc/backbone-bootstrap3-dialog",
+  "authors": [
+    "panben <gomac@qq.com>"
+  ],
+  "description": "Bootstrap3 Dialog with Backbone View",
+  "main": "src/dialog.js",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "dialog"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "underscore": "~1.8.3",
+    "backbone": "~1.2.1",
+    "bootstrap": "~3.3.5",
+    "seajs": "~3.0.0",
+    "handlebars": "~3.0.3"
+  }
+}
