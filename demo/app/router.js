@@ -10,10 +10,15 @@ define(function(require) {
     initialize: function() {},
     indexPage: function() {
       var Dialog = require('BootstrapDialog');
-      console.log(Dialog);
-      $('#main').append(Dialog.Button.create({
+      $('#main').append(Dialog.createButton({
+        type: Dialog.BUTTON_TYPE.PRIMARY,
         action: function() {
-          Dialog.Dialog.create().open();
+          Dialog.create({
+            backdrop: true,
+            keyboard: false,
+            width: '200px',
+            type: Dialog.BG_TYPE.PRIMARY
+          }).open();
         }
       }).el);
     }

@@ -17,26 +17,35 @@
     DANGER: 'danger'
   };
 
-  var BUTTON_STATIC = {
-    CATETORY: {
-      BUTTON: 'button',
-      SUBMIT: 'submit',
-      RESET: 'reset'
-    },
-    SIZE: {
-      LARGE: 'btn-lg',
-      SMALL: 'btn-sm',
-      MINI: 'btn-xs'
-    },
-    TYPE: {
-      DEFAULT: 'btn-' + TYPE.DEFAULT,
-      PRIMARY: 'btn-' + TYPE.PRIMARY,
-      INFO: 'btn-' + TYPE.INFO,
-      SUCCESS: 'btn-' + TYPE.SUCCESS,
-      WARNING: 'btn-' + TYPE.WARNING,
-      DANGER: 'btn-' + TYPE.DANGER,
-      LINK: 'btn-link'
-    }
+  var TEXT_TYPE = _.extend({
+    DEFAULT: '',
+    MUTED: 'text-muted'
+  }, _.mapObject(_.pick(TYPE, ['INFO','PRIMARY','SUCCESS','WARNING','DANGER']), function(val, key) {
+    return 'text-' + val;
+  }));
+
+  var BG_TYPE = _.extend({
+    DEFAULT: ''
+  }, _.mapObject(_.pick(TYPE, ['INFO','PRIMARY','SUCCESS','WARNING','DANGER']), function(val, key) {
+    return 'bg-' + val;
+  }));
+
+  var BUTTON_TYPE = _.extend({
+    LINK: 'btn-link'
+  }, _.mapObject(_.pick(TYPE, ['DEFAULT','INFO','PRIMARY','SUCCESS','WARNING','DANGER']), function(val, key) {
+    return 'btn-' + val;
+  }));
+
+  var BUTTON_CATEGORY = {
+    BUTTON: 'button',
+    SUBMIT: 'submit',
+    RESET: 'reset'
+  };
+
+  var BUTTON_SIZE = {
+    LARGE: 'btn-lg',
+    SMALL: 'btn-sm',
+    MINI: 'btn-xs'
   };
 
   var _Button = Backbone.View.extend({
@@ -54,8 +63,8 @@
         cssClass: '',
         label: 'OK',
         icon: '',
-        type: BUTTON_STATIC.TYPE.DEFAULT,
-        category: BUTTON_STATIC.CATETORY.BUTTON,
+        type: BUTTON_TYPE.DEFAULT,
+        category: BUTTON_CATEGORY.BUTTON,
         size: '',
         block: false,
         disabled: false,
@@ -128,9 +137,9 @@
   });
 
   var Button = {
-    TYPE: BUTTON_STATIC.TYPE,
-    CATEGORY: BUTTON_STATIC.CATETORY,
-    SIZE: BUTTON_STATIC.SIZE,
+    TYPE: BUTTON_TYPE,
+    CATEGORY: BUTTON_CATEGORY,
+    SIZE: BUTTON_SIZE,
     create: function(options) {
       return (new _Button(options));
     },
@@ -139,77 +148,31 @@
     }
   };
 
-  var ModalHeader = Backbone.View.extend({
-    tagName: 'div',
-    className: 'modal-header',
-    template: '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="<%-labelledby%>"><%-title%></h4>',
-    initialize: function(options) {
-      this.labelledby = options.labelledby;
-      this.title = options.title;
-      $(this.el).html(_.template(this.template)({
-        labelledby: this.labelledby,
-        title: this.title
-      }))
-    },
-    setTitle: function(title) {
-      this.title = title;
-      $(this.el).find('.modal-title').text(this.title);
-      return this;
-    }
-  });
 
-  var ModalBody = Backbone.View.extend({
-    tagName: 'div',
-    className: 'modal-body',
-    initialize: function(options) {
-      this.content = options.content;
-      $(this.el).html(this.content);
-    },
-    setContent: function(content) {
-      this.content = content;
-      $(this.el).html(this.content);
-      return this;
-    }
-  });
-
-  var ModalFooter = Backbone.View.extend({
-    tagName: 'div',
-    className: 'modal-footer',
-    buttons: [],
-    initialize: function(options) {
-      var that = this;
-      var me = $(that.el);
-      var buttons = options.buttons;
-      var modal = options.modal;
-      _.each(buttons, function(value) {
-        value.context = modal;
-        var button = Button.create(value);
-        me.append(button.el);
-        that.buttons.push(button);
-      });
-    }
-  });
-
-
-
-  var Modal = Backbone.View.extend({
+  var modalOptions = {};
+  var _Modal = Backbone.View.extend({
     tagName: 'div',
     className: 'modal fade',
     labelledby: _.uniqueId('ModalLabel'),
-    template: '<div class="modal-dialog"><div class="modal-content"></div></div>',
     initialize: function(options) {
+      var self = this;
+
       var defaults = {
         title: 'Dialog Title',
         message: '',
+        type: TEXT_TYPE.DEFAULT,
         buttons: [{
           label: 'Close',
-          category: 'btn-default',
+          type: Button.TYPE.DEFAULT,
           action: function(self, context) {
             context.close();
           }
         }],
         backdrop: true,
+        keyboard: true,
         autodestroy: true,
+        width: '',
+        cssClass: '',
         onShow: null,
         onShown: null,
         onHide: null,
@@ -217,36 +180,53 @@
         onLoaded: null
       };
 
-      options = _.extend({}, defaults, options);
+      modalOptions = _.extend({}, defaults, options);
+
+      var template = {
+        main: '<div class="modal-dialog" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="<%-labelledby%>"><div class="modal-content"></div></div>',
+        header: '<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="<%-labelledby%>"><%-title%></h4></div>',
+        body: '<div class="modal-body"></div>',
+        footer: '<div class="modal-footer"></div>'
+      };
 
       var me = $(this.el);
-      me.html(this.template).attr('tabindex', '-1').attr('role','dialog').attr('aria-hidden','true').attr('aria-labelledby',this.labelledby);
+      var modalDialog = $(_.template(template.main)({
+        labelledby: this.labelledby
+      })).addClass(modalOptions.cssClass).appendTo(me);
 
-      me.data('backdrop', (options.backdrop===true ? 'true' : 'static'));
+      if(modalOptions.width) {
+        modalDialog.css({
+          'width': modalOptions.width,
+          'margin-left': 'auto',
+          'margin-right': 'auto'
+        });
+      }
 
-      this.modalHeader = new ModalHeader({
+      var modalContent = me.find('.modal-content').css({
+        'border': '0'
+      });
+
+      this._header = $(_.template(template.header)({
         labelledby: this.labelledby,
-        title: options.title
+        title: modalOptions.title
+      })).addClass(modalOptions.type).css({
+        'border-radius': '6px 6px 0 0'
+      }).appendTo(modalContent);
+
+      this._title = this._header.find('.modal-title');
+
+      this._body = $(template.body).html(modalOptions.message).appendTo(modalContent);
+
+      this._footer = $(template.footer).appendTo(modalContent);
+
+      this._buttons = [];
+
+      _.each(modalOptions.buttons, function(value) {
+        value.context = self;
+        var button = Button.create(value);
+        self._footer.append(button.el);
+        self._buttons.push(button);
       });
-
-      this.modalBody = new ModalBody({
-        content: options.message
-      });
-
-      this.modalFooter = options.buttons.length > 0 ? new ModalFooter({
-        buttons: options.buttons,
-        modal: this
-      }) : null;
-
-      me.find('.modal-content').html(this.modalHeader.el).append(this.modalBody.el).append(this.modalFooter ? this.modalFooter.el : '');
-
-      this.autodestroy = options.autodestroy;
-
-      this.onShown = options.onShown;
-      this.onShow = options.onShow;
-      this.onHidden = options.onHidden;
-      this.onHide = options.onHide;
-      this.onLoaded = options.onLoaded;
 
     },
     events: {
@@ -257,29 +237,30 @@
       'loaded.bs.modal': '_onLoaded'
     },
     _onShow: function() {
-      if(_.isFunction(this.onShow)) this.onShow(this);
+      if(_.isFunction(modalOptions.onShow)) modalOptions.onShow(this);
     },
     _onShown: function() {
-      if(_.isFunction(this.onShown)) this.onShown(this);
+      if(_.isFunction(modalOptions.onShown)) modalOptions.onShown(this);
     },
     _onHide: function() {
-      if(_.isFunction(this.onHide)) this.onHide(this);
+      if(_.isFunction(modalOptions.onHide)) modalOptions.onHide(this);
     },
     _onHidden: function() {
-      if(_.isFunction(this.onHidden)) this.onHidden(this);
-      if(this.autodestroy === true) {
-        this.modalFooter || this.modalFooter.remove();
-        this.modalBody.remove();
-        this.modalHeader.remove();
+      if(_.isFunction(modalOptions.onHidden)) modalOptions.onHidden(this);
+      if(modalOptions.autodestroy === true) {
         this.remove();
       }
     },
     _onLoaded: function() {
-      if(_.isFunction(this.onLoaded)) this.onLoaded(this);
+      if(_.isFunction(modalOptions.onLoaded)) modalOptions.onLoaded(this);
     },
     open: function() {
       $('body').append(this.el);
-      $(this.el).modal('show');
+      $(this.el).modal({
+        show: true,
+        backdrop: modalOptions.backdrop===true ? true : 'static',
+        keyboard: modalOptions.keyboard
+      });
       return this;
     },
     close: function() {
@@ -287,37 +268,46 @@
       return this;
     },
     setTitle: function(title) {
-      this.modalHeader.setTitle(title);
+      this._title.text(title);
       return this;
+    },
+    getTitle: function() {
+      return this._title.text();
     },
     setMessage: function(message) {
-      this.modalBody.setContent(message);
+      this._body.html(message);
       return this;
     },
+    getModalTitle: function() {
+      return this._title;
+    },
     getModalHeader: function() {
-      return this.modalHeader.$el;
+      return this._header;
     },
     getModalBody: function() {
-      return this.modalBody.$el;
+      return this._body;
     },
     getModalFooter: function() {
-      return this.modalFooter ? this.modalFooter.$el : null;
+      return this._footer;
+    },
+    getButtonList: function() {
+      return this._buttons;
     }
   });
 
-  var Dialog = {
+  return {
+    BUTTON_TYPE: BUTTON_TYPE,
+    TEXT_TYPE: TEXT_TYPE,
+    BG_TYPE: BG_TYPE,
+    TYPE: TEXT_TYPE,
     create: function(options) {
-      return (new Modal(options));
+      return (new _Modal(options));
     },
     extend: function(options) {
-      return Modal.extend(options);
+      return _Modal.extend(options);
+    },
+    createButton: function(options) {
+      return Button.create(options);
     }
-  };
-
-
-
-  return {
-    Button: Button,
-    Dialog: Dialog
   };
 }));
