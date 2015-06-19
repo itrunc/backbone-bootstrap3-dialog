@@ -16,8 +16,17 @@ define(function(require) {
           Dialog.create({
             backdrop: true,
             keyboard: false,
-            width: '200px',
-            type: Dialog.BG_TYPE.PRIMARY
+            type: Dialog.BG_TYPE.PRIMARY,
+            buttons: [{
+              action: function(self, dialog) {
+                console.log(self);
+                console.log(dialog);
+                var _dialog = Dialog.create({
+                  width: '200px'
+                }).open();
+                console.log(_dialog);
+              }
+            }]
           }).open();
         }
       }).el);
