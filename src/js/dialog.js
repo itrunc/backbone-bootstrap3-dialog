@@ -8,35 +8,17 @@
 
 }(typeof window !== "undefined" ? window : this, function( ) {
 
-  var TYPE = {
-    DEFAULT: 'default',
-    PRIMARY: 'primary',
-    INFO: 'info',
-    SUCCESS: 'success',
-    WARNING: 'warning',
-    DANGER: 'danger'
-  };
-
   var bsGlobal = {
-    textType: _.extend({
-      DEFAULT: '',
-      MUTED: 'text-muted'
-    }, _.mapObject(_.pick(TYPE, ['INFO','PRIMARY','SUCCESS','WARNING','DANGER']), function(val, key) {
-      return 'text-' + val;
-    })),
-
-    bgType: _.extend({
-      DEFAULT: ''
-    }, _.mapObject(_.pick(TYPE, ['INFO','PRIMARY','SUCCESS','WARNING','DANGER']), function(val, key) {
-      return 'bg-' + val;
-    })),
-
-    buttonType: _.extend({
-      LINK: 'btn-link'
-    }, _.mapObject(_.pick(TYPE, ['DEFAULT','INFO','PRIMARY','SUCCESS','WARNING','DANGER']), function(val, key) {
-      return 'btn-' + val;
-    })),
-
+    type: {
+      DEFAULT: 'default',
+      PRIMARY: 'primary',
+      INFO: 'info',
+      SUCCESS: 'success',
+      WARNING: 'warning',
+      DANGER: 'danger',
+      LINK: 'link',
+      MUTED: 'muted'
+    },
     buttonCategory: {
       BUTTON: 'button',
       SUBMIT: 'submit',
@@ -56,12 +38,12 @@
   //= include modal.js
 
   return {
-    BUTTON_TYPE: bsGlobal.buttonType,
-    TEXT_TYPE: bsGlobal.textType,
-    BG_TYPE: bsGlobal.bgType,
-    TYPE: bsGlobal.textType,
+    TYPE: bsGlobal.type,
     create: bsGlobal.bsModal.create,
     extend: bsGlobal.bsModal.extend,
+    alert: bsGlobal.bsModal.alert,
+    confirm: bsGlobal.bsModal.confirm,
+    prompt: bsGlobal.bsModal.prompt,
     createButton: bsGlobal.bsButton.create
   };
 

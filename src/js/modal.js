@@ -17,10 +17,10 @@
       var defaults = {
         title: 'Dialog Title',
         message: '',
-        type: global.textType.DEFAULT,
+        type: global.type.DEFAULT,
         buttons: [{
           label: 'Close',
-          type: global.buttonType.DEFAULT,
+          type: global.type.DEFAULT,
           action: function(self, context) {
             context.close();
           }
@@ -66,13 +66,15 @@
       this._header = $(_.template(template.header)({
         labelledby: labelledby,
         title: global.modalOptions.title
-      })).addClass(global.modalOptions.type).css({
+      })).addClass('bg-'+global.modalOptions.type).css({
         'border-radius': '5px 5px 0 0'
       }).appendTo(modalContent);
 
       this._title = this._header.find('.modal-title');
 
-      this._body = $(template.body).html(global.modalOptions.message).appendTo(modalContent);
+      this._body = $(template.body).css({
+        'overflow': 'hidden'
+      }).html(global.modalOptions.message).appendTo(modalContent);
 
       this._footer = $(template.footer).appendTo(modalContent);
 
@@ -80,6 +82,7 @@
 
       _.each(global.modalOptions.buttons, function(value) {
         value.context = self;
+        value.type = value.type || global.modalOptions.type;
         var button = global.bsButton.create(value);
         self._footer.append(button.el);
         self._buttons.push(button);
@@ -158,6 +161,106 @@
     },
     extend: function(options) {
       return _Modal.extend(options);
+    },
+    alert: function() {
+      var defaults = {
+        title: '信息',
+        message: '',
+        type: global.type.PRIMARY,
+        buttonLabel: '确定',
+        callback: null
+      };
+      var options = _.isObject(arguments[0]) ? arguments[0] : {};
+      if(_.isString(arguments[0])) {
+        options.message = arguments[0];
+        options.callback = _.isFunction(arguments[1]) ? arguments[1] : null;
+      }
+      var settings = _.extend({}, defaults, options);
+      return this.create({
+        title: settings.title,
+        message: settings.message,
+        type: settings.type,
+        backdrop: false,
+        width: '360px',
+        buttons: [{
+          label: settings.buttonLabel,
+          action: function(self, context) {
+            if(_.isFunction(settings.callback)) settings.callback();
+            context.close();
+          }
+        }]
+      }).open();
+    },
+    confirm: function() {
+      var defaults = {
+        title: '信息',
+        message: '',
+        type: global.type.PRIMARY,
+        okLabel: '确定',
+        cancelLabel: '取消',
+        callback: null
+      };
+      var options = _.isObject(arguments[0]) ? arguments[0] : {};
+      if(_.isString(arguments[0])) {
+        options.message = arguments[0];
+        options.callback = _.isFunction(arguments[1]) ? arguments[1] : null;
+      }
+      var settings = _.extend({}, defaults, options);
+      return this.create({
+        title: settings.title,
+        message: settings.message,
+        type: settings.type,
+        width: '360px',
+        buttons: [{
+          label: settings.okLabel,
+          action: function(self, context) {
+            if(_.isFunction(settings.callback)) settings.callback(true);
+            context.close();
+          }
+        }, {
+          label: settings.cancelLabel,
+          type: global.type.DEFAULT,
+          action: function(self, context) {
+            if(_.isFunction(settings.callback)) settings.callback(false);
+            context.close();
+          }
+        }]
+      }).open();
+    },
+    prompt: function() {
+      var defaults = {
+        title: '请输入内容',
+        type: global.type.PRIMARY,
+        okLabel: '确定',
+        cancelLabel: '取消',
+        callback: null
+      };
+
+      var options = _.isFunction(arguments[0]) ? {
+        callback: arguments[0]
+      } : (_.isObject(arguments[0]) ? arguments[0] : {});
+
+      var settings = _.extend({}, defaults, options);
+
+      return this.create({
+        title: settings.title,
+        message: '<textarea class="form-control" rows="3" style="resize:vertical"></textarea>',
+        type: settings.type,
+        buttons: [{
+          label: settings.okLabel,
+          action: function(self, context) {
+            var content = context.getModalBody().find('textarea').val();
+            if(_.isFunction(settings.callback)) settings.callback(content);
+            context.close();
+          }
+        }, {
+          label: settings.cancelLabel,
+          type: global.type.DEFAULT,
+          action: function(self, context) {
+            context.close();
+          }
+        }]
+      }).open();
     }
   };
 }));

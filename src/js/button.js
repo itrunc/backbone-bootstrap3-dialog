@@ -21,7 +21,7 @@
         cssClass: '',
         label: 'OK',
         icon: '',
-        type: global.buttonType.PRIMARY,
+        type: global.type.DEFAULT,
         category: global.buttonCategory.BUTTON,
         size: global.buttonSize.DEFAULT,
         block: false,
@@ -39,7 +39,7 @@
       var me = $(this.el);
 
       me.attr('type', options.category).append(this.iconTemplate(options.icon)).append(options.label).addClass([
-        options.type,
+        'btn-'+options.type,
         options.size,
         options.cssClass,
         (options.block?'btn-block':''),

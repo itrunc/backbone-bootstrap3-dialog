@@ -6,17 +6,18 @@ var wrap = require('gulp-wrap');
 var include = require('gulp-include');
 
 var paths = {
-  scripts: ['src/js/dialog.js']
+  scripts: ['src/js/*.js'],
+  main: ['src/js/dialog.js']
 };
 
 gulp.task('scripts', function() {
-  return gulp.src(paths.scripts)
+  return gulp.src(paths.main)
     .pipe(include())
     .pipe(gulp.dest('dist/js/'));
 });
 
 gulp.task('scripts-min', function() {
-  return gulp.src(paths.scripts)
+  return gulp.src(paths.main)
     .pipe(include())
     //.pipe(sourcemaps.init())
     .pipe(uglify())
@@ -26,7 +27,7 @@ gulp.task('scripts-min', function() {
 });
 
 gulp.task('scripts-cmd', function() {
-  return gulp.src(paths.scripts)
+  return gulp.src(paths.main)
     .pipe(include())
     .pipe(wrap('define(function(require, exports, module) {<%=contents%>});'))
     .pipe(uglify())
