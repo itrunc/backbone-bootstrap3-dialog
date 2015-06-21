@@ -1,0 +1,14 @@
+body {
+  background-color: #FFF;
+}
+.body {
+  background-color: #F9F9F9;
+  padding: 40px;
+  margin: 0;
+}
+.intro {
+  text-align: center;
+}
+.bg-transparent {
+  background-color: transparent;
+}
