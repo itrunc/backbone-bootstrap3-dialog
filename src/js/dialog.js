@@ -26,7 +26,7 @@
     },
 
     buttonSize: {
-      DEFAULT: '',
+      NORMAL: '',
       LARGE: 'btn-lg',
       SMALL: 'btn-sm',
       MINI: 'btn-xs'
@@ -39,12 +39,16 @@
 
   return {
     TYPE: bsGlobal.type,
+    BUTTON_CATEGORY: bsGlobal.buttonCategory,
+    BUTTON_SIZE: bsGlobal.buttonSize,
     create: bsGlobal.bsModal.create,
     extend: bsGlobal.bsModal.extend,
     alert: bsGlobal.bsModal.alert,
     confirm: bsGlobal.bsModal.confirm,
     prompt: bsGlobal.bsModal.prompt,
-    createButton: bsGlobal.bsButton.create
+    show: function(options) {
+      return bsGlobal.bsModal.create(options).open();
+    }
   };
 
 }));

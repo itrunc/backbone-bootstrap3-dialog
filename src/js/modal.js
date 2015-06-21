@@ -9,13 +9,14 @@
   var _Modal = Backbone.View.extend({
     tagName: 'div',
     className: 'modal fade',
+    _isOpened: false,
     initialize: function(options) {
       var self = this;
 
       var labelledby = 'ModalLabel_' + this.cid;
 
       var defaults = {
-        title: 'Dialog Title',
+        title: 'Title',
         message: '',
         type: global.type.DEFAULT,
         buttons: [{
@@ -115,16 +116,20 @@
       if(_.isFunction(global.modalOptions.onLoaded)) global.modalOptions.onLoaded(this);
     },
     open: function() {
-      $('body').append(this.el);
-      $(this.el).modal({
-        show: true,
-        backdrop: global.modalOptions.backdrop===true ? true : 'static',
-        keyboard: global.modalOptions.keyboard
-      });
+      if(!this._isOpened) {
+        $('body').append(this.el);
+        $(this.el).modal({
+          show: true,
+          backdrop: global.modalOptions.backdrop===true ? true : 'static',
+          keyboard: global.modalOptions.keyboard
+        });
+        this._isOpened = true;
+      }
       return this;
     },
     close: function() {
       $(this.el).modal('hide');
+      this._isOpened = false;
       return this;
     },
     setTitle: function(title) {
@@ -164,10 +169,10 @@
     },
     alert: function() {
       var defaults = {
-        title: '信息',
+        title: 'Alert',
         message: '',
         type: global.type.PRIMARY,
-        buttonLabel: '确定',
+        buttonLabel: 'OK',
         callback: null
       };
       var options = _.isObject(arguments[0]) ? arguments[0] : {};
@@ -193,11 +198,11 @@
     },
     confirm: function() {
       var defaults = {
-        title: '信息',
+        title: 'Confirm',
         message: '',
         type: global.type.PRIMARY,
-        okLabel: '确定',
-        cancelLabel: '取消',
+        okLabel: 'Yes',
+        cancelLabel: 'No',
         callback: null
       };
       var options = _.isObject(arguments[0]) ? arguments[0] : {};
@@ -229,10 +234,11 @@
     },
     prompt: function() {
       var defaults = {
-        title: '请输入内容',
+        title: 'Input Content',
         type: global.type.PRIMARY,
-        okLabel: '确定',
-        cancelLabel: '取消',
+        content: '',
+        okLabel: 'OK',
+        cancelLabel: 'CANCEL',
         callback: null
       };
 
@@ -240,11 +246,16 @@
         callback: arguments[0]
       } : (_.isObject(arguments[0]) ? arguments[0] : {});
 
+      if(_.isString(arguments[0])) {
+        options.content = arguments[0];
+        options.callback = _.isFunction(arguments[1]) ? arguments[1] : null;
+      }
+
       var settings = _.extend({}, defaults, options);
 
       return this.create({
         title: settings.title,
-        message: '<textarea class="form-control" rows="3" style="resize:vertical"></textarea>',
+        message: '<textarea class="form-control" rows="3" style="resize:vertical">'+settings.content+'</textarea>',
         type: settings.type,
         buttons: [{
           label: settings.okLabel,

@@ -23,7 +23,7 @@
         icon: '',
         type: global.type.DEFAULT,
         category: global.buttonCategory.BUTTON,
-        size: global.buttonSize.DEFAULT,
+        size: global.buttonSize.NORMAL,
         block: false,
         disabled: false,
         preventDefault: false,
