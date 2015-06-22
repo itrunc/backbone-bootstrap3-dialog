@@ -28,6 +28,14 @@ gulp.task('scripts-cmd', function() {
   return gulp.src(paths.main)
     .pipe(include())
     .pipe(wrap('define(function(require, exports, module) {<%=contents%>});'))
+    .pipe(rename({suffix: '.cmd'}))
+    .pipe(gulp.dest('dist/js/'));
+});
+
+gulp.task('scripts-cmd-min', function() {
+  return gulp.src(paths.main)
+    .pipe(include())
+    .pipe(wrap('define(function(require, exports, module) {<%=contents%>});'))
     .pipe(uglify())
     .pipe(rename({suffix: '.cmd.min'}))
     .pipe(gulp.dest('dist/js/'));
@@ -51,7 +59,7 @@ gulp.task('scripts-cmd-docs', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.scripts, ['scripts', 'scripts-min', 'scripts-cmd', 'scripts-min-docs', 'scripts-cmd-docs']);
+  gulp.watch(paths.scripts, ['scripts', 'scripts-min', 'scripts-cmd', 'scripts-cmd-min', 'scripts-min-docs', 'scripts-cmd-docs']);
 });
 
-gulp.task('default', ['watch', 'scripts', 'scripts-min', 'scripts-cmd', 'scripts-min-docs', 'scripts-cmd-docs']);
+gulp.task('default', ['watch', 'scripts', 'scripts-min', 'scripts-cmd', 'scripts-cmd-min', 'scripts-min-docs', 'scripts-cmd-docs']);
