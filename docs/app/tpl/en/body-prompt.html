@@ -8,12 +8,20 @@
 <p><button type="button" class="btn btn-primary open-prompt" data-name="simple">Show Prompt</button></p>
 <p>&nbsp;</p>
 
-<h4>Define default content for the dialog</h4>
+<h4>Define default content for the prompt dialog</h4>
 <pre>BootstrapDialog.prompt('My name is panben', function(content) {
   BootstrapDialog.alert(content);
 });
 </pre>
 <p><button type="button" class="btn btn-primary open-prompt" data-name="with-content">Show Prompt</button></p>
+<p>&nbsp;</p>
+
+<h4>Define title for the prompt dialog</h4>
+<pre>BootstrapDialog.prompt('My name is panben', 'Prompt Information', function(content) {
+  BootstrapDialog.alert(content);
+});
+</pre>
+<p><button type="button" class="btn btn-primary open-prompt" data-name="with-title">Show Prompt</button></p>
 <p>&nbsp;</p>
 
 <h4>More options for the prompt dialog</h4>

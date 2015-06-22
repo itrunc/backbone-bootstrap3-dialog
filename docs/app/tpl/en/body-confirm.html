@@ -1,11 +1,28 @@
 <h2>Confirm</h2>
 
 <h4>Call the confirm function to show an confirm dialog</h4>
-<pre>BootstrapDialog.confirm('Are you sure delete the guys?', function(isTrue) {
-  isTrue ? BootstrapDialog.alert('Yes') : BootstrapDialog.alert('No');
-});
+<pre>BootstrapDialog.confirm('Are you sure delete the guys?',
+  function(isTrue) {
+    isTrue
+      ? BootstrapDialog.alert('Yes')
+      : BootstrapDialog.alert('No');
+  }
+);
 </pre>
 <p><button type="button" class="btn btn-primary open-confirm" data-name="simple">Show Confirm</button></p>
+<p>&nbsp;</p>
+
+<h4>Define title of the confirm dialog</h4>
+<pre>BootstrapDialog.confirm('Are you sure delete the guys?',
+  'Confirm information',
+  function(isTrue) {
+    isTrue
+      ? BootstrapDialog.alert('Yes')
+      : BootstrapDialog.alert('No');
+  }
+);
+</pre>
+<p><button type="button" class="btn btn-primary open-confirm" data-name="with-title">Show Confirm</button></p>
 <p>&nbsp;</p>
 
 <h4>More options for the confirm dialog</h4>
