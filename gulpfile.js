@@ -7,7 +7,7 @@ var include = require('gulp-include');
 
 var paths = {
   scripts: ['src/js/*.js'],
-  main: ['src/js/dialog.js']
+  main: ['src/js/backbone-bootstrap3-dialog.js']
 };
 
 gulp.task('scripts', function() {
@@ -19,9 +19,7 @@ gulp.task('scripts', function() {
 gulp.task('scripts-min', function() {
   return gulp.src(paths.main)
     .pipe(include())
-    //.pipe(sourcemaps.init())
     .pipe(uglify())
-    //.pipe(sourcemaps.write())
     .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('dist/js/'));
 });
@@ -35,8 +33,25 @@ gulp.task('scripts-cmd', function() {
     .pipe(gulp.dest('dist/js/'));
 });
 
-gulp.task('watch', function() {
-  gulp.watch(paths.scripts, ['scripts', 'scripts-min', 'scripts-cmd']);
+gulp.task('scripts-min-docs', function() {
+  return gulp.src(paths.main)
+    .pipe(include())
+    .pipe(uglify())
+    .pipe(rename({suffix: '.min'}))
+    .pipe(gulp.dest('docs/lib/'));
 });
 
-gulp.task('default', ['watch', 'scripts', 'scripts-min', 'scripts-cmd']);
+gulp.task('scripts-cmd-docs', function() {
+  return gulp.src(paths.main)
+    .pipe(include())
+    .pipe(wrap('define(function(require, exports, module) {<%=contents%>});'))
+    .pipe(uglify())
+    .pipe(rename({suffix: '.cmd.min'}))
+    .pipe(gulp.dest('docs/lib/'));
+});
+
+gulp.task('watch', function() {
+  gulp.watch(paths.scripts, ['scripts', 'scripts-min', 'scripts-cmd', 'scripts-min-docs', 'scripts-cmd-docs']);
+});
+
+gulp.task('default', ['watch', 'scripts', 'scripts-min', 'scripts-cmd', 'scripts-min-docs', 'scripts-cmd-docs']);
