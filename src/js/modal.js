@@ -175,12 +175,17 @@
         buttonLabel: 'OK',
         callback: null
       };
+
       var options = _.isObject(arguments[0]) ? arguments[0] : {};
-      if(_.isString(arguments[0])) {
-        options.message = arguments[0];
-        options.callback = _.isFunction(arguments[1]) ? arguments[1] : null;
-      }
+
+      options = _.isString(arguments[0]) ? {
+        message: arguments[0],
+        title: _.isString(arguments[1]) ? arguments[1] : defaults.title,
+        callback: _.isFunction(arguments[1]) ? arguments[1] : (_.isFunction(arguments[2]) ? arguments[2] : null)
+      } : options;
+
       var settings = _.extend({}, defaults, options);
+
       return this.create({
         title: settings.title,
         message: settings.message,
@@ -205,12 +210,17 @@
         cancelLabel: 'No',
         callback: null
       };
+
       var options = _.isObject(arguments[0]) ? arguments[0] : {};
-      if(_.isString(arguments[0])) {
-        options.message = arguments[0];
-        options.callback = _.isFunction(arguments[1]) ? arguments[1] : null;
-      }
+
+      options = _.isString(arguments[0]) ? {
+        message: arguments[0],
+        title: _.isString(arguments[1]) ? arguments[1] : defaults.title,
+        callback: _.isFunction(arguments[1]) ? arguments[1] : (_.isFunction(arguments[2]) ? arguments[2] : null)
+      } : options;
+
       var settings = _.extend({}, defaults, options);
+
       return this.create({
         title: settings.title,
         message: settings.message,
@@ -246,10 +256,11 @@
         callback: arguments[0]
       } : (_.isObject(arguments[0]) ? arguments[0] : {});
 
-      if(_.isString(arguments[0])) {
-        options.content = arguments[0];
-        options.callback = _.isFunction(arguments[1]) ? arguments[1] : null;
-      }
+      options = _.isString(arguments[0]) ? {
+        content: arguments[0],
+        title: _.isString(arguments[1]) ? arguments[1] : defaults.title,
+        callback: _.isFunction(arguments[1]) ? arguments[1] : (_.isFunction(arguments[2]) ? arguments[2] : null)
+      } : options;
 
       var settings = _.extend({}, defaults, options);
 
