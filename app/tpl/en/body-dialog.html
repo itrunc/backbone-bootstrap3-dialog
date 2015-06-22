@@ -1,41 +1,47 @@
 <h2>Dialog Instance</h2>
-<p>You can call the create function to create an dialog instance</p>
-<p><button type="button" class="btn btn-primary open-dialog" data-name="simple">Show Dialog</button></p>
-<pre>BootstrapDialog.show();</pre>
 
-<p>Dialog with more options</p>
-<p><button type="button" class="btn btn-primary open-dialog" data-name="with-option">Show Dialog</button></p>
+<h4>Call the show function to show an dialog</h4>
+<pre>BootstrapDialog.show();</pre>
+<p><button type="button" class="btn btn-primary open-dialog" data-name="simple">Show Dialog</button></p>
+<p>&nbsp;</p>
+
+<h4>Define title and content of the dialog</h4>
 <pre>BootstrapDialog.show({
   title: 'Hello Dialog',
   message: '&lt;div class="alert alert-info"&gt;I am a dialog&lt;/div&gt;'
 });</pre>
+<p><button type="button" class="btn btn-primary open-dialog" data-name="with-option">Show Dialog</button></p>
+<p>&nbsp;</p>
 
-<p>Dialog defines type</p>
-<p><button type="button" class="btn btn-primary open-dialog" data-name="with-type">Show Dialog</button></p>
+<h4>Define type of the dialog</h4>
 <pre>BootstrapDialog.show({
   title: 'Hello Dialog',
   message: 'I am a dialog',
   type: BootstrapDialog.TYPE.INFO
 });</pre>
+<p><button type="button" class="btn btn-primary open-dialog" data-name="with-type">Show Dialog</button></p>
+<p>&nbsp;</p>
 
-<p>Dialog can't be closed by click outside</p>
-<p><button type="button" class="btn btn-primary open-dialog" data-name="with-backdrop">Show Dialog</button></p>
+<h4>Define backdrop with false to avoid closing when click outside the dialog</h4>
 <pre>BootstrapDialog.show({
   title: 'Hello Dialog',
   message: 'I am a dialog',
   backdrop: false
 });</pre>
+<p><button type="button" class="btn btn-primary open-dialog" data-name="with-backdrop">Show Dialog</button></p>
+<p>&nbsp;</p>
 
-<p>Dialog defines width</p>
-<p><button type="button" class="btn btn-primary open-dialog" data-name="with-width">Show Dialog</button></p>
+<h4>Define width of the dialog</h4>
 <pre>BootstrapDialog.show({
   title: 'Hello Dialog',
   message: 'I am a dialog',
   width: '60%'
 });</pre>
+<p><button type="button" class="btn btn-primary open-dialog" data-name="with-width">Show Dialog</button></p>
+<p>&nbsp;</p>
 
-<p>Dialog defines buttons, See <a href="#button-option">Button</a> for more options of button</p>
-<p><button type="button" class="btn btn-primary open-dialog" data-name="with-buttons">Show Dialog</button></p>
+<h4>Define Buttons</h4>
+<p>More button options, see <a href="#button-option">Button</a></p>
 <pre>var options = {
   title: 'Please Choose',
   message: 'What is your sex?',
@@ -64,9 +70,10 @@
   }]
 };
 BootstrapDialog.show(options);</pre>
+<p><button type="button" class="btn btn-primary open-dialog" data-name="with-buttons">Show Dialog</button></p>
+<p>&nbsp;</p>
 
-<p>Dialog with Event</p>
-<p><button type="button" class="btn btn-primary open-dialog" data-name="with-event">Show Dialog</button></p>
+<h4>Define events</h4>
 <pre>var options = {
   title: 'Hello Dialog',
   message: '&lt;div class="alert alert-info"&gt;&lt;/div&gt;',
@@ -78,7 +85,9 @@ BootstrapDialog.show(options);</pre>
   }
 };
 BootstrapDialog.show(options);</pre>
-<p>getModalBody() is a method of the dialog, See <a href="#methods">more methods</a></p>
+<p><button type="button" class="btn btn-primary open-dialog" data-name="with-event">Show Dialog</button></p>
+<blockquote>getModalBody() is a method of the dialog. More methods, see <a href="#methods">Methods</a></blockquote>
+<p>&nbsp;</p>
 
 <h3>Options:</h3>
 <table class="table">
