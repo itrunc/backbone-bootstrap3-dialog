@@ -1,7 +1,8 @@
-# backbone-bootstrap3-dialog
-Bootstrap3 Dialog with Backbone View
+# Backbone Bootstrap3 Dialog
+Bootstrap3 modal created as backbone view.
+See [Demo](http://itrunc.github.io/backbone-bootstrap3-dialog/).
 
-## Installation
+## Build Introduction
 
 * Install node modules
 
@@ -9,24 +10,24 @@ Bootstrap3 Dialog with Backbone View
   npm install
   ```
 
-  You might use sudo before npm.
-
-* Install components
-
-  ```bash
-  bower install
-  ```
-
-* Build
+* Build with gulp
 
   ```bash
   gulp
   ```
 
-* Run demo
+## Implement docs/demo
+
+* Install bower components
 
   ```bash
-  node demo
+  bower install
   ```
 
-  Access http://localhost:3000/demo/
+* Start service
+
+  ```bash
+  node docs
+  ```
+
+  Browser http://localhost:3000/docs/
