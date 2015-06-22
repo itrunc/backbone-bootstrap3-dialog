@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Bootstrap Dialog Demo</title>
+  <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="main"></div>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/underscore-min.js"></script>
+<script src="lib/backbone-min.js"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="lib/sea.js"></script>
+<script src="lib/seajs-text.js"></script>
+<script>
+  seajs.config({
+    base: './',
+    alias: {
+      'BootstrapDialog': 'lib/dialog.cmd.min'
+    }
+  });
+  seajs.use('./app/router');
+</script>
+</body>
+</html>

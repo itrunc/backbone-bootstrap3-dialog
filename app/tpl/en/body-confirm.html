@@ -1,0 +1,72 @@
+<h2>Confirm</h2>
+<p>You can call the confirm function to show the confirm dialog</p>
+<p><button type="button" class="btn btn-primary open-confirm" data-name="simple">Show Confirm</button></p>
+<pre>BootstrapDialog.confirm('Are you sure delete the guys?', function(isTrue) {
+  isTrue ? BootstrapDialog.alert('Yes') : BootstrapDialog.alert('No');
+});
+</pre>
+<p>Confirm dialog with options</p>
+<p><button type="button" class="btn btn-primary open-confirm" data-name="with-option">Show Confirm</button></p>
+<pre>var confirmOption = {
+  title: 'It\'s danger',
+  message: 'Are you sure delete the guys?',
+  type: this.dialog.TYPE.DANGER,
+  okLabel: 'Delete It',
+  cancelLabel: 'Cancel',
+  callback: function(isTrue) {
+    isTrue
+      ? BootstrapDialog.alert('It has been deleted')
+      : BootstrapDialog.alert('You cancel the deletion');
+  }
+};
+BootstrapDialog.confirm(confirmOption);</pre>
+<h3>confirmOption</h3>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Name</th><th>Type</th><th>Default</th><th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>title</td>
+    <td>string</td>
+    <td>'Confirm'</td>
+    <td>Title of the dialog</td>
+  </tr>
+  <tr>
+    <td>message</td>
+    <td>string</td>
+    <td>''</td>
+    <td>Content of the dialog</td>
+  </tr>
+  <tr>
+    <td>type</td>
+    <td>string</td>
+    <td>BootstrapDialog.TYPE.PRIMARY</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>okLabel</td>
+    <td>string</td>
+    <td>'Yes'</td>
+    <td>Label of the OK button</td>
+  </tr>
+  <tr>
+    <td>cancelLabel</td>
+    <td>string</td>
+    <td>'No'</td>
+    <td>Label of the cancel button</td>
+  </tr>
+  <tr>
+    <td>callback</td>
+    <td>function</td>
+    <td>null</td>
+    <td>
+      <p><code>function(isTrue) {...}</code></p>
+      <p>if OK button is clicked, isTrue===true</p>
+      <p>if cancel button is clicked, isTrue===false</p>
+    </td>
+  </tr>
+  </tbody>
+</table>
