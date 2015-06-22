@@ -121,8 +121,16 @@ define(function(require, exports, module) {
         case 'simple':
           BootstrapDialog.alert('The message...');
           break;
+        case 'with-title':
+          BootstrapDialog.alert('The message...', 'Information');
+          break;
         case 'with-callback':
           BootstrapDialog.alert('The message...', function(){
+            BootstrapDialog.alert('callback message')
+          });
+          break;
+        case 'with-title-callback':
+          BootstrapDialog.alert('The message...', 'Information', function(){
             BootstrapDialog.alert('callback message')
           });
           break;
@@ -145,9 +153,23 @@ define(function(require, exports, module) {
       var me = $(e.target);
       switch(me.data('name')) {
         case 'simple':
-          BootstrapDialog.confirm('Are you sure delete the guys?', function(isTrue) {
-            isTrue ? BootstrapDialog.alert('Yes') : BootstrapDialog.alert('No');
-          });
+          BootstrapDialog.confirm('Are you sure delete the guys?',
+            function(isTrue) {
+              isTrue
+                ? BootstrapDialog.alert('Yes')
+                : BootstrapDialog.alert('No');
+            }
+          );
+          break;
+        case 'with-title':
+          BootstrapDialog.confirm('Are you sure delete the guys?',
+            'Confirm information',
+            function(isTrue) {
+              isTrue
+                ? BootstrapDialog.alert('Yes')
+                : BootstrapDialog.alert('No');
+            }
+          );
           break;
         case 'with-option':
           BootstrapDialog.confirm({
@@ -178,6 +200,11 @@ define(function(require, exports, module) {
         case 'with-content':
           BootstrapDialog.prompt('My name is panben', function(content) {
             BootstrapDialog.alert(content);
+          });
+          break;
+        case 'with-title':
+          BootstrapDialog.prompt('panben', 'Input your name', function(content) {
+            BootstrapDialog.alert('Hello '+content);
           });
           break;
         case 'with-option':

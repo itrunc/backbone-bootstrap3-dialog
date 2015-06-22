@@ -5,12 +5,25 @@
 <p><button type="button" class="btn btn-primary open-alert" data-name="simple">Show Alert</button></p>
 <p>&nbsp;</p>
 
-<h4>Alert dialog with callback</h4>
+<h4>Define title of the alert dialog</h4>
+<pre>BootstrapDialog.alert('The message...', 'Information');</pre>
+<p><button type="button" class="btn btn-primary open-alert" data-name="with-title">Show Alert</button></p>
+<p>&nbsp;</p>
+
+<h4>Define callback for the alert dialog</h4>
 <pre>BootstrapDialog.alert('The message...', function(){
   BootstrapDialog.alert('callback message')
 });
 </pre>
 <p><button type="button" class="btn btn-primary open-alert" data-name="with-callback">Show Alert</button></p>
+<p>&nbsp;</p>
+
+<h4>Define title and callback for the alert dialog</h4>
+<pre>BootstrapDialog.alert('The message...', 'Information', function(){
+  BootstrapDialog.alert('callback message')
+});
+</pre>
+<p><button type="button" class="btn btn-primary open-alert" data-name="with-title-callback">Show Alert</button></p>
 <p>&nbsp;</p>
 
 <h4>More options for the alert dialog</h4>
