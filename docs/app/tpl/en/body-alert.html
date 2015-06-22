@@ -1,15 +1,19 @@
 <h2>Alert</h2>
-<p>You can call the alert function to show alert dialog</p>
-<p><button type="button" class="btn btn-primary open-alert" data-name="simple">Show Alert</button></p>
+
+<h4>Call the alert function to show an alert dialog</h4>
 <pre>BootstrapDialog.alert('The message...');</pre>
-<p>Alert dialog with callback</p>
-<p><button type="button" class="btn btn-primary open-alert" data-name="with-callback">Show Alert</button></p>
+<p><button type="button" class="btn btn-primary open-alert" data-name="simple">Show Alert</button></p>
+<p>&nbsp;</p>
+
+<h4>Alert dialog with callback</h4>
 <pre>BootstrapDialog.alert('The message...', function(){
   BootstrapDialog.alert('callback message')
 });
 </pre>
-<p>Alert dialog with options</p>
-<p><button type="button" class="btn btn-primary open-alert" data-name="with-option">Show Alert</button></p>
+<p><button type="button" class="btn btn-primary open-alert" data-name="with-callback">Show Alert</button></p>
+<p>&nbsp;</p>
+
+<h4>More options for the alert dialog</h4>
 <pre>var alertOption = {
   title: 'Error',
   message: '&lt;p&gt;404 - Page Not Found&lt;/p&gt;',
@@ -21,6 +25,9 @@
 };
 BootstrapDialog.alert(alertOption);
 </pre>
+<p><button type="button" class="btn btn-primary open-alert" data-name="with-option">Show Alert</button></p>
+<p>&nbsp;</p>
+
 <h3>alertOption</h3>
 <table class="table">
   <thead>

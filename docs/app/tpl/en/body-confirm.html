@@ -1,12 +1,14 @@
 <h2>Confirm</h2>
-<p>You can call the confirm function to show the confirm dialog</p>
-<p><button type="button" class="btn btn-primary open-confirm" data-name="simple">Show Confirm</button></p>
+
+<h4>Call the confirm function to show an confirm dialog</h4>
 <pre>BootstrapDialog.confirm('Are you sure delete the guys?', function(isTrue) {
   isTrue ? BootstrapDialog.alert('Yes') : BootstrapDialog.alert('No');
 });
 </pre>
-<p>Confirm dialog with options</p>
-<p><button type="button" class="btn btn-primary open-confirm" data-name="with-option">Show Confirm</button></p>
+<p><button type="button" class="btn btn-primary open-confirm" data-name="simple">Show Confirm</button></p>
+<p>&nbsp;</p>
+
+<h4>More options for the confirm dialog</h4>
 <pre>var confirmOption = {
   title: 'It\'s danger',
   message: 'Are you sure delete the guys?',
@@ -20,6 +22,9 @@
   }
 };
 BootstrapDialog.confirm(confirmOption);</pre>
+<p><button type="button" class="btn btn-primary open-confirm" data-name="with-option">Show Confirm</button></p>
+<p>&nbsp;</p>
+
 <h3>confirmOption</h3>
 <table class="table">
   <thead>

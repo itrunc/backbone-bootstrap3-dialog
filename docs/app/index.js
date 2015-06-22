@@ -7,7 +7,7 @@ define(function(require, exports, module) {
     template: require('app/tpl/index.html'),
     initialize: function(options) {
       this.$el.html(_.template(this.template)({
-        exports: require('app/tpl/en/body-properties.html'),
+        properties: require('app/tpl/en/body-properties.html'),
         buttonOption: require('app/tpl/en/body-button.html'),
         alert: require('app/tpl/en/body-alert.html'),
         confirm: require('app/tpl/en/body-confirm.html'),

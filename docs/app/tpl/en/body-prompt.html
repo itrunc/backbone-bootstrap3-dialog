@@ -1,18 +1,22 @@
 <h2>Prompt</h2>
-<p>You can call the prompt function to show a prompt dialog</p>
-<p><button type="button" class="btn btn-primary open-prompt" data-name="simple">Show Prompt</button></p>
+
+<h4>Call the prompt function to show an prompt dialog</h4>
 <pre>BootstrapDialog.prompt(function(content) {
   BootstrapDialog.alert(content);
 });
 </pre>
-<p>Prompt dialog with default content</p>
-<p><button type="button" class="btn btn-primary open-prompt" data-name="with-content">Show Prompt</button></p>
+<p><button type="button" class="btn btn-primary open-prompt" data-name="simple">Show Prompt</button></p>
+<p>&nbsp;</p>
+
+<h4>Define default content for the dialog</h4>
 <pre>BootstrapDialog.prompt('My name is panben', function(content) {
   BootstrapDialog.alert(content);
 });
 </pre>
-<p>Prompt dialog with option</p>
-<p><button type="button" class="btn btn-primary open-prompt" data-name="with-option">Show Prompt</button></p>
+<p><button type="button" class="btn btn-primary open-prompt" data-name="with-content">Show Prompt</button></p>
+<p>&nbsp;</p>
+
+<h4>More options for the prompt dialog</h4>
 <pre>var promptOption = {
   title: 'Input your name',
   type: BootstrapDialog.TYPE.INFO,
@@ -25,6 +29,9 @@
 };
 BootstrapDialog.prompt(promptOption);
 </pre>
+<p><button type="button" class="btn btn-primary open-prompt" data-name="with-option">Show Prompt</button></p>
+<p>&nbsp;</p>
+
 <h3>promptOption</h3>
 <table class="table">
   <thead>
